@@ -48,7 +48,7 @@ const FormTwo = () => {
             className={"mx-auto my-[10em] max-w-[400px]"}
           >
             <div className={"mb-[1.6em]"}>
-              <label className="mb-1 font-normal text-blue-600 [text-shadow:_0_1px_0_rgb(0_0_0_/_5%)]">
+              <label className="font-normal text-blue-600 [text-shadow:_0_1px_0_rgb(0_0_0_/_5%)]">
                 First Name <span className="text-red-600">*</span>
               </label>
               <Input

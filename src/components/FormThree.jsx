@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Formik } from "formik";
-import { Button, Select } from "antd";
+import { Button, ConfigProvider, Select } from "antd";
 import { Input } from "formik-antd";
 import MultiStepFormContext from "../context/MultiStepFormContext";
 import { motion } from "framer-motion";
@@ -48,27 +48,42 @@ const FormThree = () => {
             className={"mx-auto my-[10em] max-w-[400px]"}
           >
             <div className={"mb-[1.6em]"}>
-              <label>Country Code *</label>
+              <label className="font-normal text-blue-600 [text-shadow:_0_1px_0_rgb(0_0_0_/_5%)]">
+                Country Code <span className="text-red-600">*</span>
+              </label>
 
-              <Select
-                name={"countryCode"}
-                defaultValue={"+91"}
-                className={`w-min ${errors.countryCode && "border-red-400"}`}
-                options={[
-                  { label: "India (+91)", value: "+91" },
-                  { label: "US (+1)", value: "+1" },
-                ]}
-                onChange={(e) => {
-                  setFormThreeState((formThreeState) => ({
-                    ...formThreeState,
-                    countryCode: e,
-                  }));
+              <ConfigProvider
+                theme={{
+                  components: {
+                    Select: {
+                      borderRadius: 0,
+                      colorBgContainer: "#E7F0FE",
+                    },
+                  },
                 }}
-              />
-              <p className={"text-red-400"}>{errors.countryCode}</p>
+              >
+                <Select
+                  name={"countryCode"}
+                  defaultValue={"+91"}
+                  className={`w-min ${errors.countryCode && "border-red-400"} ml-1`}
+                  options={[
+                    { label: "India (+91)", value: "+91" },
+                    { label: "US (+1)", value: "+1" },
+                  ]}
+                  onChange={(e) => {
+                    setFormThreeState((formThreeState) => ({
+                      ...formThreeState,
+                      countryCode: e,
+                    }));
+                  }}
+                />
+              </ConfigProvider>
+              <p className={"text-sm font-normal text-red-600"}>{errors.countryCode}</p>
             </div>
             <div className={"mb-[1.6em]"}>
-              <label>Phone *</label>
+              <label className="font-normal text-blue-600 [text-shadow:_0_1px_0_rgb(0_0_0_/_5%)]">
+                Phone <span className="text-red-600">*</span>
+              </label>
               <Input
                 type="tel"
                 pattern="[0-9]{10}"
@@ -79,7 +94,7 @@ const FormThree = () => {
                     e.preventDefault();
                   }
                 }}
-                className={`${errors.countryCode && "border-red-400"}`}
+                className={`${errors.countryCode && "border-red-400"} mt-1 rounded-sm bg-[#E7F0FE]`}
                 onChange={(e) => {
                   setFormThreeState((formThreeState) => ({
                     ...formThreeState,
@@ -87,22 +102,28 @@ const FormThree = () => {
                   }));
                 }}
               />
-              <p className={"text-red-400"}>{errors.phoneNumber}</p>
+              <p className={"text-sm font-normal text-red-600"}>{errors.phoneNumber}</p>
             </div>
-            <div className={"mb-[1.6em] flex gap-x-2 align-middle"}>
-              <label>Terms and Conditions *</label>
-              <Input
-                type="checkbox"
-                name={"acceptTermsAndConditions"}
-                className={`h-4 w-4 ${errors.acceptTermsAndConditions && "border-red-400"}`}
-                onChange={(e) => {
-                  setFormThreeState((formThreeState) => ({
-                    ...formThreeState,
-                    acceptTermsAndConditions: e.target.checked,
-                  }));
-                }}
-              />
-              <p className={"text-red-400"}>{errors.acceptTermsAndConditions}</p>
+            <div className={"mb-[1.6em]"}>
+              <div className="flex items-center justify-start gap-x-2">
+                <label className="font-normal text-blue-600 [text-shadow:_0_1px_0_rgb(0_0_0_/_5%)]">
+                  Terms and Conditions <span className="text-red-600">*</span>
+                </label>
+                <Input
+                  type="checkbox"
+                  name={"acceptTermsAndConditions"}
+                  className={`h-4 w-4 ${errors.acceptTermsAndConditions && "border-red-400"}`}
+                  onChange={(e) => {
+                    setFormThreeState((formThreeState) => ({
+                      ...formThreeState,
+                      acceptTermsAndConditions: e.target.checked,
+                    }));
+                  }}
+                />
+              </div>
+              <p className={"text-sm font-normal text-red-600"}>
+                {errors.acceptTermsAndConditions}
+              </p>
             </div>
             <div className={" mb-[1.6em] flex justify-between"}>
               <Button
